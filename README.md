@@ -9,5 +9,5 @@ Aplikacija je zamišljena za korištenje u osnovnim školama kada se učenici pr
 Glavni ciljevi su ostvarenje zbrajanja i oduzimanja vektora u jednoj i dvije dimenzije te rastav sile na komponente u dvije dimenzije.
 
 # Članovi tima
-Lana Zekušić
-Gabrijela Klepec
+> Lana Zekušić
+> Gabrijela Klepec
