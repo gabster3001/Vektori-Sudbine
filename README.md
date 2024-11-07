@@ -10,5 +10,5 @@ Glavni ciljevi su ostvarenje zbrajanja i oduzimanja vektora u jednoj i dvije dim
 
 # Članovi tima
 
-Lana Zekušić
+Lana Zekušić <br>
 Gabrijela Klepec
