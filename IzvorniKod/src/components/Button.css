@@ -1,0 +1,15 @@
+.custom-button {
+    background-color: #ddd;
+    /* siva boja */
+    color: #333;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.custom-button:hover {
+    background-color: #ccc;
+    /* tamnija siva kod hover efekta */
+}

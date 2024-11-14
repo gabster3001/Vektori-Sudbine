@@ -1,0 +1,46 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #f5f5f5;
+    /* pozadinska boja */
+    border-bottom: 1px solid #ccc;
+    /* donja linija */
+}
+
+.header__logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.header__search {
+    flex: 1;
+    margin: 0 20px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.header__user-info {
+    display: flex;
+    align-items: center;
+}
+
+.header__username {
+    margin-right: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.header__level {
+    margin-right: 10px;
+    color: #666;
+}
+
+.header__icon {
+    font-size: 20px;
+    color: #f0c419;
+    /* boja ikone zvjezdice */
+}
