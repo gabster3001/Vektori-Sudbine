@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect, FormEvent } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from '../api/axios';
 import React from "react";
 import './Register.css';  // Import the CSS file
 
@@ -64,28 +63,35 @@ const Register: React.FC = () => {
         }
 
         try {
-            const response = await axios.post(REGISTER_URL,
-                JSON.stringify({ user, pwd }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
+            const response = await fetch(REGISTER_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user, pwd }),
+            });
+
+            if (!response.ok) {
+                if (response.status === 409) {
+                    setErrMsg('Username Taken');
+                } else {
+                    setErrMsg('Registration Failed');
                 }
-            );
-            console.log(response?.data);
+                return;
+            }
+
+            const data = await response.json();
+            console.log(data);
             setSuccess(true);
             setUser('');
             setPwd('');
             setMatchPwd('');
-        } catch (err: any) {
-            if (!err?.response) {
-                setErrMsg('No Server Response');
-            } else if (err.response?.status === 409) {
-                setErrMsg('Username Taken');
-            } else {
-                setErrMsg('Registration Failed');
-            }
-            errRef.current?.focus();
+        } catch (error) {
+            console.error(error);
+            setErrMsg('No Server Response');
         }
+
+        errRef.current?.focus();
     };
 
     return (

@@ -1,14 +1,14 @@
 import React from 'react';
-import './Button.css';
-import { useNavigate } from 'react-router-dom'; // Using useNavigate for routing in v6
+import { useNavigate } from 'react-router-dom';
 
-// Define the props interface
 interface ButtonProps {
-    text: string;  // `text` should be a string
-    route: string; // `route` should be a string representing the path
+    text: string;       // Button text
+    route: string;      // Route to navigate to
+    color?: string;     // Optional: Button background color
+    textColor?: string; // Optional: Button text color
 }
 
-const Button: React.FC<ButtonProps> = ({ text, route }) => {
+const Button: React.FC<ButtonProps> = ({ text, route, color = '#007BFF', textColor = '#FFFFFF' }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -16,10 +16,18 @@ const Button: React.FC<ButtonProps> = ({ text, route }) => {
     };
 
     return (
-        <button className="custom-button" onClick={handleClick}>
+        <button
+            className="custom-button"
+            onClick={handleClick}
+            style={{
+                backgroundColor: color,
+                color: textColor,
+            }}
+        >
             {text}
         </button>
     );
 };
 
 export default Button;
+

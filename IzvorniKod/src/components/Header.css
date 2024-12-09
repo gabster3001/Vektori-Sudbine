@@ -1,12 +1,27 @@
+/* Reset default margins and paddings */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100%;
+}
+
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
     background-color: #f5f5f5;
-    /* pozadinska boja */
     border-bottom: 1px solid #ccc;
-    /* donja linija */
+    position: relative;
+    margin-bottom: 2px;
+    /* Default position */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    /* Stay above other content */
 }
 
 .header__logo {
@@ -42,5 +57,4 @@
 .header__icon {
     font-size: 20px;
     color: #f0c419;
-    /* boja ikone zvjezdice */
 }
