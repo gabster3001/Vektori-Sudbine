@@ -1,50 +1,114 @@
+
 .zbrajanje-container {
-    padding: 0;
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: url('/public/zbrajanjeBackground.jpeg') no-repeat center center fixed;
+    background-size: 400% 400%;
+    overflow: hidden;
+  }
+  
+
+
+  .header {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    font-family: Arial, sans-serif;
+    padding: 1rem 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .back-button-container {
+    display: flex;
+    align-items: center;
+    
+}
+
+  
+  .title-text {
+    margin-left: 1rem;
+    font-size: 1.8rem;
     color: #333;
-}
+    font-weight: bold;
+  }
+  
 
-.header h2 {
-    margin-left: 10px;
+  .opis {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .opis h2 {
+    font-size: 1.5rem;
+    color: #4a4a4a;
+    margin-bottom: 0.5rem;
+  }
+  
+  .opis p {
+    font-size: 1rem;
     color: #666;
-}
+    line-height: 1.6;
+  }
+  
 
-/* New section for Back Button and Title */
-.back-button-container {
+  .gumbi {
     display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1rem 0;
+  }
+  
+  .gumbi button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #B9C7D9;
+    color: black;
+    font-size: 1rem;
+    cursor: pointer;
+    text-transform: capitalize;
+  }
+  
+  .gumbi button:hover {
+    background-color: #574dcf;
+  }
+  
+ 
+  .interaktivni-prozor {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    margin-bottom: 20px;
-    padding-left: 10px;
-    /* Add space on the left side inside the container */
-}
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
 
-
-.back-button-container h2 {
-    margin-left: 10px;
-    color: #666;
-}
-
-.opis {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.gumbi {
+  .zadaci {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.interaktivni-prozor {
-    margin-top: 20px;
-}
-
-.zadaci {
-    margin-top: 20px;
-    text-align: center;
-}
+    justify-content: flex-end;
+    margin: 1rem 0;
+  }
+  
+  .zadaci button {
+    padding: 0.75rem 1.5rem;
+    background-color: #4caf50;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .zadaci button:hover {
+    background-color: #45a049;
+  }
+  
