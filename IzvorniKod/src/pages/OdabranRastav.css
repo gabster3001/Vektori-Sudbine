@@ -1,0 +1,112 @@
+.zbrajanje-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: url('/public/zbrajanjeBackground.jpeg') no-repeat center center fixed;
+    background-size: 400% 400%;
+    overflow: hidden;
+}
+
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.back-button-container {
+    display: flex;
+    align-items: center;
+
+}
+
+
+.title-text {
+    margin-left: 1rem;
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: bold;
+}
+
+
+.opis {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.opis h2 {
+    font-size: 1.5rem;
+    color: #4a4a4a;
+    margin-bottom: 0.5rem;
+}
+
+.opis p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+
+.gumbi {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.gumbi button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #B9C7D9;
+    color: black;
+    font-size: 1rem;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+
+.gumbi button:hover {
+    background-color: #574dcf;
+}
+
+
+.interaktivni-prozor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.zadaci {
+    display: flex;
+    justify-content: flex-end;
+    margin: 1rem 0;
+}
+
+.zadaci button {
+    padding: 0.75rem 1.5rem;
+    background-color: #4caf50;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.zadaci button:hover {
+    background-color: #45a049;
+}
