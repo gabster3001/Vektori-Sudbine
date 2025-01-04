@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", // Modern JavaScript for compatibility and performance
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2020"
+    ], // Libraries to support browser and ES2020 features
+    "module": "ESNext", // ESNext module syntax for module imports
+    "moduleResolution": "Node", // Node-style module resolution for compatibility with npm packages
+    "jsx": "react-jsx", // New React JSX transform
+    "allowJs": false, // Disable JavaScript to focus on TypeScript
+    "skipLibCheck": true, // Skip type checks on declaration files for faster compilation
+    "esModuleInterop": true, // Allow compatibility between ES and CommonJS modules
+    "allowSyntheticDefaultImports": true, // Allow default imports even for modules without default export
+    "strict": true, // Enable strict type-checking for better code quality
+    "forceConsistentCasingInFileNames": true, // Enforce case consistency in module imports
+    "resolveJsonModule": true, // Allow JSON imports
+    "isolatedModules": true, // Ensure each file can be transpiled in isolation (required for CRA)
+    "noEmit": true, // Disable emitting output files (useful for pure type-checking)
+    "incremental": true, // Speed up builds by enabling incremental compilation
+    "baseUrl": "./", // Set base URL for relative module imports
+    "paths": {
+      "@components/*": [
+        "src/components/*"
+      ], // Alias for components directory
+      "@pages/*": [
+        "src/pages/*"
+      ], // Alias for pages directory
+      "@api/*": [
+        "src/api/*"
+      ] // Alias for API directory
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ], // Include all TypeScript and TSX files in src directory
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "src/**/*.js"
+  ] // Exclude JavaScript, build directories
+}
