@@ -34,4 +34,33 @@
   .arrow-y {
     fill: #c71585;
   }
-  
+  .vector-simulator-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Razmak između SVG i kontrola */
+}
+
+.vector-simulator {
+  border: 1px solid #ccc;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.controls label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+.controls input[type="range"] {
+  width: 200px;
+}

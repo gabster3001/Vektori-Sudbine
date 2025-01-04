@@ -13,6 +13,40 @@ const VectorSimulator: React.FC = () => {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [xAngle, setXAngle] = useState(0); // Nagib X-osi
   const [yAngle, setYAngle] = useState(0); // Nagib Y-osi
+  const drawVectorsAndPolygon = (
+    ctx: CanvasRenderingContext2D,
+    vector: { x: number; y: number },
+    xProjection: { x: number; y: number },
+    yProjection: { x: number; y: number },
+    canvasCenter: { x: number; y: number }
+  ) => {
+    const { x: cx, y: cy } = canvasCenter;
+
+    // Točke poligona: središte, X projekcija, glavni vektor, Y projekcija
+    const polygonPoints = [
+      { x: cx, y: cy }, // Središte
+      { x: cx + xProjection.x, y: cy - xProjection.y }, // X projekcija
+      { x: cx + vector.x, y: cy - vector.y }, // Glavni vektor
+      { x: cx + yProjection.x, y: cy - yProjection.y }, // Y projekcija
+    ];
+
+    // Funkcija za crtanje poligona
+    ctx.beginPath();
+    ctx.moveTo(polygonPoints[0].x, polygonPoints[0].y);
+
+    for (let i = 1; i < polygonPoints.length; i++) {
+      ctx.lineTo(polygonPoints[i].x, polygonPoints[i].y);
+    }
+
+    ctx.closePath();
+    ctx.fillStyle = "rgba(0, 128, 255, 0.3)"; // Transparentna plava boja za poligon
+    ctx.fill();
+
+    // Crtanje rubova poligona
+    ctx.strokeStyle = "rgba(0, 128, 255, 0.7)";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  };
 
   // Inicijalno crtanje osa
   useEffect(() => {
@@ -217,14 +251,42 @@ const VectorSimulator: React.FC = () => {
 
     const vectorGroup = svg.append("g").attr("class", "vector-group");
 
-    // Prilagođavanje krajnjih koordinata linije glavnog vektora
+    const calculateProjections = (
+      vector: Vector,
+      xAngle: number,
+      yAngle: number
+    ) => {
+      const xRad = (-xAngle * Math.PI) / 180; // Pretvaranje u radijane
+      const yRad = ((90 - yAngle) * Math.PI) / 180; // Ispravljen kut za Y os (rotira u pravom smjeru)
+
+      // Jedinični vektori za X i Y osi
+      const xAxis = { x: Math.cos(xRad), y: Math.sin(xRad) };
+      const yAxis = { x: Math.cos(yRad), y: Math.sin(yRad) };
+
+      // Projekcija na X os
+      const xProjection =
+        (vector.x * xAxis.x + vector.y * xAxis.y) /
+        (xAxis.x ** 2 + xAxis.y ** 2);
+
+      // Projekcija na Y os
+      const yProjection =
+        (vector.x * yAxis.x + vector.y * yAxis.y) /
+        (yAxis.x ** 2 + yAxis.y ** 2);
+
+      return {
+        x: { x: xProjection * xAxis.x, y: xProjection * xAxis.y },
+        y: { x: yProjection * yAxis.x, y: yProjection * yAxis.y },
+      };
+    };
+
+    // Glavni vektor (prilagodba zbog strelice)
     const mainVectorLength = Math.sqrt(vector.x ** 2 + vector.y ** 2);
     const adjustedX =
       (vector.x * (mainVectorLength - ARROW_LENGTH)) / mainVectorLength;
     const adjustedY =
       (vector.y * (mainVectorLength - ARROW_LENGTH)) / mainVectorLength;
 
-    // Glavni vektor (linija)
+    // Crtanje glavnog vektora
     vectorGroup
       .append("line")
       .attr("class", "vector-main")
@@ -233,7 +295,6 @@ const VectorSimulator: React.FC = () => {
       .attr("x2", 250 + adjustedX)
       .attr("y2", 250 - adjustedY);
 
-    // Glavni vektor (strelica)
     vectorGroup
       .append("polygon")
       .attr("class", "arrow-main")
@@ -242,42 +303,53 @@ const VectorSimulator: React.FC = () => {
         createArrowHead(250 + vector.x, 250 - vector.y, vector.x, -vector.y)
       );
 
-    // X komponenta (prilagodba)
-    const adjustedXComponent =
-      vector.x > 0 ? vector.x - ARROW_LENGTH : vector.x + ARROW_LENGTH;
+    // Izračun projekcija
+    const projections = calculateProjections(vector, xAngle, yAngle);
 
+    // X komponenta
     vectorGroup
       .append("line")
       .attr("class", "vector-x")
       .attr("x1", 250)
       .attr("y1", 250)
-      .attr("x2", 250 + adjustedXComponent)
-      .attr("y2", 250);
+      .attr("x2", 250 + projections.x.x)
+      .attr("y2", 250 - projections.x.y);
 
-    // X komponenta (strelica)
     vectorGroup
       .append("polygon")
       .attr("class", "arrow-x")
-      .attr("points", createArrowHead(250 + vector.x, 250, vector.x, 0));
+      .attr(
+        "points",
+        createArrowHead(
+          250 + projections.x.x,
+          250 - projections.x.y,
+          projections.x.x,
+          -projections.x.y
+        )
+      );
 
-    // Y komponenta (prilagodba)
-    const adjustedYComponent =
-      vector.y > 0 ? vector.y - ARROW_LENGTH : vector.y + ARROW_LENGTH;
-
+    // Y komponenta
     vectorGroup
       .append("line")
       .attr("class", "vector-y")
       .attr("x1", 250)
       .attr("y1", 250)
-      .attr("x2", 250)
-      .attr("y2", 250 - adjustedYComponent);
+      .attr("x2", 250 + projections.y.x)
+      .attr("y2", 250 - projections.y.y);
 
-    // Y komponenta (strelica)
     vectorGroup
       .append("polygon")
       .attr("class", "arrow-y")
-      .attr("points", createArrowHead(250, 250 - vector.y, 0, -vector.y));
-  }, [vector]);
+      .attr(
+        "points",
+        createArrowHead(
+          250 + projections.y.x,
+          250 - projections.y.y,
+          projections.y.x,
+          -projections.y.y
+        )
+      );
+  }, [vector, xAngle, yAngle]);
 
   //##################################################################
   // Praćenje kretanja miša
@@ -301,9 +373,12 @@ const VectorSimulator: React.FC = () => {
     const y = 250 - (event.clientY - svgRect.top);
     setVector({ x, y });
   };
-
+  const [vectors, setVectors] = useState([
+    { start: { x: 250, y: 250 }, end: { x: 300, y: 300 } },
+  ]);
   return (
-    <>
+    <div className="vector-simulator-container">
+      {/* SVG element */}
       <svg
         ref={svgRef}
         width="500"
@@ -313,8 +388,12 @@ const VectorSimulator: React.FC = () => {
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseUp}
-      />
-      <div className="sliders">
+      >
+        {/* SVG sadržaj */}
+      </svg>
+
+      {/* Kontrole izvan SVG-a */}
+      <div className="controls">
         <label>
           X-os nagib:
           <input
@@ -336,7 +415,7 @@ const VectorSimulator: React.FC = () => {
           />
         </label>
       </div>
-    </>
+    </div>
   );
 };
 
