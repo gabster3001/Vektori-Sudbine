@@ -1,0 +1,221 @@
+.main-content{
+  display: flex;
+  flex-direction: row;
+}
+
+.content-right{
+  padding: 1rem;
+}
+
+.odabrano-zbrajanje {
+  margin: 0;
+  font-family: Poppins, sans-serif;
+  box-sizing: border-box;
+  position: relative;
+  background: url('/public/zbrajanjeBackground.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh; 
+  display: flex;
+  flex-direction: column;
+}
+
+.odabrano-zbrajanje-navigation {
+  display: flex;
+  align-items: center;
+  gap: 1rem; 
+  padding-bottom: 10px;
+}
+
+.odabrano-zbrajanje-navigation > * {
+  height: 3rem; 
+  padding: 0 1rem; 
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  border-radius: 8px; 
+  text-decoration: none; 
+  font-size: 1rem; 
+}
+
+
+.back-button {
+  font-weight: bold;
+  color: black;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  max-width: 50px;
+}
+
+.back-button:hover {
+  background-color: #e0e0e0;
+}
+
+.odabrano-zbrajanje-title {
+  font-size: x-large;
+  font-weight: 300;
+  flex-grow: 1; 
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.oduzimanje-button,
+.rastav-button {
+  background-color: #74A7D9;
+  color: white;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.oduzimanje-button:hover,
+.rastav-button:hover {
+  background-color: #4c56af;
+}
+
+
+
+.zbrajanje-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 1rem;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.odabrano-zbrajanje-middle {
+  flex: 1;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  min-height: 80vh;
+}
+
+.zbrajanje-buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content:flex-start;
+  gap: 0.5rem;
+  font-weight: bold;
+}
+
+.section {
+  padding: 1rem;
+  margin: 1rem 0;
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.card-right {
+  flex-basis: 20%;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  max-height: 15%;
+}
+
+.card-right h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.zadaci-button {
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: #74a8d9;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.zadaci-button:hover {
+  background-color: #5c93c6;
+}
+
+.zbrajanje-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.dropdown {
+  position: relative;
+}
+
+#one-d {
+  margin-left: 50%;
+}
+
+.dropdown-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: black;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.dropdown-icon {
+  transition: transform 0.2s;
+}
+
+.dropdown-icon.open {
+  transform: rotate(180deg);
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  min-width: 200px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.dropdown-section {
+  margin-bottom: 1rem;
+}
+
+.dropdown-section h3 {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.dropdown-section button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem;
+  border: none;
+  background: none;
+  color: #333;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.dropdown-section button:hover {
+  background: #f0f0f0;
+}

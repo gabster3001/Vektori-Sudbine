@@ -1,5 +1,5 @@
 .vector-simulator {
-    background-color: #e6e6fa; /* Svetlo ljubičasta (lavanda) */
+    background-color: #e6e6fa; 
     border: 1px solid black;
   }
   
@@ -14,12 +14,12 @@
   }
   
   .vector-x {
-    stroke: #6a5acd; /* Ljubičasta s više plave */
+    stroke: #6a5acd; 
     stroke-width: 2;
   }
   
   .vector-y {
-    stroke: #c71585; /* Ljubičasta s više crvene */
+    stroke: #c71585; 
     stroke-width: 2;
   }
   

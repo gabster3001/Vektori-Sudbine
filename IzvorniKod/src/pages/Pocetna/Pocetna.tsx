@@ -1,20 +1,17 @@
 
 import React from 'react';
 import './Pocetna.css';
+import Header from '../../components/Header/Header';
 
 const Pocetna: React.FC = () => {
+  const username = "Korisnik";
+    const level = 3;
   return (
-    <div className="login-page">
-      <header className="header">
-        <div className="logo">PRO-R</div>
-        <div className="profile">
-        
-          <div className="profile-icon"></div>
 
-        
-          <a href="/">prijavi se ili registriraj</a>
-        </div>
-      </header>
+    <div className="login-page">
+      <Header username={username} level={level} />
+      
+      
 
       
       <main className="content">

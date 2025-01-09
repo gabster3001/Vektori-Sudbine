@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
-import "./VectorSimulator.css"; // Uključivanje CSS-a
+import "./VectorSimulator.css"; 
 
 interface Vector {
   x: number;
