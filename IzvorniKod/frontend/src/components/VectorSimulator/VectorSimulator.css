@@ -1,0 +1,37 @@
+.vector-simulator {
+    background-color: #e6e6fa; 
+    border: 1px solid black;
+  }
+  
+  .axis {
+    stroke: gray;
+    stroke-width: 1;
+  }
+  
+  .vector-main {
+    stroke: white;
+    stroke-width: 4;
+  }
+  
+  .vector-x {
+    stroke: #6a5acd; 
+    stroke-width: 2;
+  }
+  
+  .vector-y {
+    stroke: #c71585; 
+    stroke-width: 2;
+  }
+  
+  .arrow-main {
+    fill: white;
+  }
+  
+  .arrow-x {
+    fill: #6a5acd;
+  }
+  
+  .arrow-y {
+    fill: #c71585;
+  }
+  

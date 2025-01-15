@@ -12,13 +12,11 @@ body {
     justify-content: space-between;
     padding: 10px 20px;
     background-color: #f5f5f5;
-    border-bottom: 1px solid #ccc;
     position: relative;
-    margin-bottom: 2px;
-   
+    max-width: 97.5vw;
     top: 0;
     left: 0;
-    width: 100%;
+    width: auto;
     z-index: 1000;
   
 }

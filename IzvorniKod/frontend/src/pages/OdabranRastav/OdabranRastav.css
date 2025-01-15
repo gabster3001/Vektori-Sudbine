@@ -1,0 +1,165 @@
+.main-content{
+    display: flex;
+    flex-direction: row;
+}
+
+.content-right{
+    padding: 1rem;
+}
+
+.odabran-rastav {
+    margin: 0;
+    font-family: Poppins, sans-serif;
+    box-sizing: border-box;
+    position: relative;
+    background: url('/public/zbrajanjeBackground.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh; 
+    display: flex;
+    flex-direction: column;
+}
+
+.odabran-rastav-navigation {
+    display: flex;
+    align-items: center;
+    gap: 1rem; 
+    padding-bottom: 10px;
+}
+
+.odabran-rastav-navigation > * {
+    height: 3rem; 
+    padding: 0 1rem; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 8px; 
+    text-decoration: none; 
+    font-size: 1rem; 
+}
+
+
+.back-button {
+    font-weight: bold;
+    color: black;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    max-width: 50px;
+}
+
+
+.back-button:hover {
+    background-color: #e0e0e0;
+}
+
+.odabran-rastav-title {
+    font-size: x-large;
+    font-weight: 300;
+    flex-grow: 1; 
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.zbrajanje-button,
+.oduzimanje-button {
+    background-color: #74A7D9;
+    color: white;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.zbrajanje-button:hover,
+.oduzimanje-button:hover {
+    background-color: #4c56af;
+}
+
+
+
+.rastav-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1rem;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #f3f3f3;
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.odabran-rastav-middle {
+    flex: 1;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    min-height: 80vh;
+}
+
+.rastav-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-start;
+    gap: 0.5rem;
+    font-weight: bold;
+}
+
+.section {
+    padding: 1rem;
+    margin: 1rem 0;
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.card-right {
+    flex-basis: 20%;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 1rem;
+    max-height: 15%;
+}
+
+.card-right h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.zadaci-button {
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #74a8d9;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.zadaci-button:hover {
+    background-color: #5c93c6;
+}
+
+.rastav-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+
+.interaktivni-prozor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+}
+
