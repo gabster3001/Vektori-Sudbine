@@ -16,13 +16,33 @@ const Register: React.FC = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    // Check if passwords match
+    // Validacija praznih polja
+    if (!user.trim() || !email.trim() || !pwd.trim() || !matchPwd.trim()) {
+      setErrMsg("All fields are required.");
+      return;
+    }
+
+    // Validacija email formata
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setErrMsg("Invalid email format.");
+      return;
+    }
+
+    // Validacija podudaranja lozinki
     if (pwd !== matchPwd) {
       setErrMsg("Passwords do not match.");
       return;
     }
 
-    // Send data to the backend
+    // Log podataka prije slanja na backend
+    console.log("Sending data to backend:", {
+      username: user,
+      email: email,
+      password: pwd,
+    });
+
+    // Slanje podataka na backend
     try {
       const response = await fetch("http://localhost:5000/register", {
         method: "POST",
@@ -34,6 +54,7 @@ const Register: React.FC = () => {
         setSuccess(true);
       } else {
         const errorData = await response.json();
+        console.error("Error response from server:", errorData); // Log greške sa servera
         setErrMsg(errorData.message || "Registration failed.");
       }
     } catch (error) {

@@ -1,17 +1,20 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../components/AuthContext"; // Import AuthContext
 import "./Pocetna.css";
 
 const Pocetna: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate(); // Hook za navigaciju
+  const { login } = useAuth(); // Koristimo AuthContext za login
+  const navigate = useNavigate();
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
+    setLoading(true); // Postavljamo stanje učitavanja
 
     try {
       const response = await fetch("http://localhost:5000/login", {
@@ -23,19 +26,19 @@ const Pocetna: React.FC = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setSuccessMessage(data.message);
-        setErrorMessage("");
-        console.log("Logged in user:", data.user);
-
-        // Navigacija na stranicu Izbornik
-        navigate("/izbornik");
+        console.log("Server Response:", data);
+        login(data.token); // Koristimo AuthContext za pohranu tokena
+        console.log("Prijava uspješna:", data.message);
+        navigate("/izbornik"); // Preusmjeravanje na izbornik
       } else {
-        setErrorMessage(data.message);
-        setSuccessMessage("");
+        console.error("Greška prilikom prijave:", data.message);
+        setErrorMessage(data.message || "Prijava nije uspjela.");
       }
     } catch (error) {
-      setErrorMessage("Failed to connect to the server.");
+      setErrorMessage("Nije moguće spojiti se na poslužitelj.");
       console.error(error);
+    } finally {
+      setLoading(false); // Zaustavljamo učitavanje
     }
   };
 
@@ -72,12 +75,11 @@ const Pocetna: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <button type="submit">Log in</button>
+              <button type="submit" disabled={loading}>
+                {loading ? "Prijava..." : "Log in"}
+              </button>
             </form>
             {errorMessage && <p className="error-message">{errorMessage}</p>}
-            {successMessage && (
-              <p className="success-message">{successMessage}</p>
-            )}
             <button className="google-login">google log in</button>
           </div>
 

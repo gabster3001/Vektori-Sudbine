@@ -13,40 +13,6 @@ const VectorSimulator: React.FC = () => {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [xAngle, setXAngle] = useState(0); // Nagib X-osi
   const [yAngle, setYAngle] = useState(0); // Nagib Y-osi
-  const drawVectorsAndPolygon = (
-    ctx: CanvasRenderingContext2D,
-    vector: { x: number; y: number },
-    xProjection: { x: number; y: number },
-    yProjection: { x: number; y: number },
-    canvasCenter: { x: number; y: number }
-  ) => {
-    const { x: cx, y: cy } = canvasCenter;
-
-    // Točke poligona: središte, X projekcija, glavni vektor, Y projekcija
-    const polygonPoints = [
-      { x: cx, y: cy }, // Središte
-      { x: cx + xProjection.x, y: cy - xProjection.y }, // X projekcija
-      { x: cx + vector.x, y: cy - vector.y }, // Glavni vektor
-      { x: cx + yProjection.x, y: cy - yProjection.y }, // Y projekcija
-    ];
-
-    // Funkcija za crtanje poligona
-    ctx.beginPath();
-    ctx.moveTo(polygonPoints[0].x, polygonPoints[0].y);
-
-    for (let i = 1; i < polygonPoints.length; i++) {
-      ctx.lineTo(polygonPoints[i].x, polygonPoints[i].y);
-    }
-
-    ctx.closePath();
-    ctx.fillStyle = "rgba(0, 128, 255, 0.3)"; // Transparentna plava boja za poligon
-    ctx.fill();
-
-    // Crtanje rubova poligona
-    ctx.strokeStyle = "rgba(0, 128, 255, 0.7)";
-    ctx.lineWidth = 2;
-    ctx.stroke();
-  };
 
   // Inicijalno crtanje osa
   useEffect(() => {
@@ -55,8 +21,6 @@ const VectorSimulator: React.FC = () => {
     // Uklanjanje prethodnih osi
     svg.selectAll(".axis").remove();
 
-    // Funkcija za izračun presjeka osi s rubovima
-    // Funkcija za izračun presjeka linija sa rubovima na temelju nagiba
     const calculateLineIntersection = (
       x1: number,
       y1: number,
@@ -66,7 +30,6 @@ const VectorSimulator: React.FC = () => {
     ) => {
       const intersections = [];
 
-      // Presjek sa gornjim rubom (y = 0)
       if (dy !== 0) {
         const t = (bounds.yMin - y1) / dy;
         const xIntersection = x1 + t * dx;
@@ -75,7 +38,6 @@ const VectorSimulator: React.FC = () => {
         }
       }
 
-      // Presjek s donjim rubom (y = 500)
       if (dy !== 0) {
         const t = (bounds.yMax - y1) / dy;
         const xIntersection = x1 + t * dx;
@@ -84,7 +46,6 @@ const VectorSimulator: React.FC = () => {
         }
       }
 
-      // Presjek sa lijevim rubom (x = 0)
       if (dx !== 0) {
         const t = (bounds.xMin - x1) / dx;
         const yIntersection = y1 + t * dy;
@@ -93,7 +54,6 @@ const VectorSimulator: React.FC = () => {
         }
       }
 
-      // Presjek sa desnim rubom (x = 500)
       if (dx !== 0) {
         const t = (bounds.xMax - x1) / dx;
         const yIntersection = y1 + t * dy;
@@ -104,7 +64,7 @@ const VectorSimulator: React.FC = () => {
 
       return intersections;
     };
-    //#################################################################3
+
     const calculateLineEndpoints = (angle: number) => {
       const rad = (angle * Math.PI) / 180; // Kut u radijanima
       const dx = Math.cos(rad);
@@ -114,7 +74,6 @@ const VectorSimulator: React.FC = () => {
       const startY = 250; // Centar platna
       const bounds = { xMin: 0, xMax: 500, yMin: 0, yMax: 500 }; // Granice platna
 
-      // Izračun presjeka linije s rubovima
       const intersections = calculateLineIntersection(
         startX,
         startY,
@@ -123,23 +82,19 @@ const VectorSimulator: React.FC = () => {
         bounds
       );
 
-      // Ako postoje dva presjeka, koristimo ih kao krajnje točke
       if (intersections.length >= 2) {
         return intersections.slice(0, 2);
       }
 
-      // Ako nije pronađen dovoljan broj presjeka (ne bi trebalo biti slučaj), vraćamo centar kao fallback
       return [
         { x: startX, y: startY },
-        { x: startX + dx * 100, y: startY + dy * 100 }, // Vektor u proizvoljnom smjeru
+        { x: startX + dx * 100, y: startY + dy * 100 },
       ];
     };
 
-    // Izračunavanje točaka za X i Y os
     const xAxisPoints = calculateLineEndpoints(xAngle);
     const yAxisPoints = calculateLineEndpoints(90 + yAngle);
 
-    // Crtanje nove X osi
     svg
       .append("line")
       .attr("x1", xAxisPoints[0].x)
@@ -148,7 +103,6 @@ const VectorSimulator: React.FC = () => {
       .attr("y2", xAxisPoints[1].y)
       .attr("class", "axis");
 
-    // Crtanje nove Y osi
     svg
       .append("line")
       .attr("x1", yAxisPoints[0].x)
@@ -157,75 +111,10 @@ const VectorSimulator: React.FC = () => {
       .attr("y2", yAxisPoints[1].y)
       .attr("class", "axis");
   }, [xAngle, yAngle]);
-  // Funkcija za crtanje vektora
-  useEffect(() => {
-    const svg = d3.select(svgRef.current);
 
-    // Brisanje prethodnih vektora
-    svg.selectAll(".vector-group").remove();
+  const ARROW_LENGTH = 10;
+  const ARROW_WIDTH = 6;
 
-    // Grupa za vektore
-    const vectorGroup = svg.append("g").attr("class", "vector-group");
-
-    // Crtanje glavnog vektora (skraćena dužina zbog strelice)
-    const mainVectorLength = Math.sqrt(vector.x ** 2 + vector.y ** 2);
-    const adjustedX = (vector.x * (mainVectorLength - 10)) / mainVectorLength;
-    const adjustedY = (vector.y * (mainVectorLength - 10)) / mainVectorLength;
-
-    vectorGroup
-      .append("line")
-      .attr("class", "vector-main")
-      .attr("x1", 250)
-      .attr("y1", 250)
-      .attr("x2", 250 + adjustedX)
-      .attr("y2", 250 - adjustedY);
-
-    vectorGroup
-      .append("polygon") // Strelica na glavnom vektoru
-      .attr("class", "arrow-main")
-      .attr(
-        "points",
-        createArrowHead(250 + vector.x, 250 - vector.y, vector.x, vector.y)
-      );
-
-    // Crtanje X komponente (skraćena zbog strelice)
-    const adjustedXComponent = vector.x > 0 ? vector.x - 10 : vector.x + 10;
-    vectorGroup
-      .append("line")
-      .attr("class", "vector-x")
-      .attr("x1", 250)
-      .attr("y1", 250)
-      .attr("x2", 250 + adjustedXComponent)
-      .attr("y2", 250);
-
-    vectorGroup
-      .append("polygon") // Strelica na X komponenti
-      .attr("class", "arrow-x")
-      .attr("points", createArrowHead(250 + vector.x, 250, vector.x, 0));
-
-    // Crtanje Y komponente (skraćena zbog strelice)
-    const adjustedYComponent = vector.y > 0 ? vector.y - 10 : vector.y + 10;
-    vectorGroup
-      .append("line")
-      .attr("class", "vector-y")
-      .attr("x1", 250)
-      .attr("y1", 250)
-      .attr("x2", 250)
-      .attr("y2", 250 - adjustedYComponent);
-
-    vectorGroup
-      .append("polygon") // Strelica na Y komponenti
-      .attr("class", "arrow-y")
-      .attr("points", createArrowHead(250, 250 - vector.y, 0, vector.y));
-  }, [vector]);
-
-  // useeffect i strelice ####################################################################################################################
-
-  // Definiraj parametre strelice kao konstante da bude jasno
-  const ARROW_LENGTH = 10; // Dužina strelice
-  const ARROW_WIDTH = 6; // Širina strelice
-
-  // Funkcija za crtanje strelice
   const createArrowHead = (x: number, y: number, dx: number, dy: number) => {
     const angle = Math.atan2(dy, dx);
 
@@ -242,11 +131,9 @@ const VectorSimulator: React.FC = () => {
     return `${x},${y} ${x1},${y1} ${x2},${y2}`;
   };
 
-  // Ažurirani efekt za crtanje vektora
   useEffect(() => {
     const svg = d3.select(svgRef.current);
 
-    // Očisti prethodne vektore
     svg.selectAll(".vector-group").remove();
 
     const vectorGroup = svg.append("g").attr("class", "vector-group");
@@ -256,37 +143,31 @@ const VectorSimulator: React.FC = () => {
       xAngle: number,
       yAngle: number
     ) => {
-      const xRad = (-xAngle * Math.PI) / 180; // Pretvaranje u radijane
-      const yRad = ((90 - yAngle) * Math.PI) / 180; // Ispravljen kut za Y os (rotira u pravom smjeru)
+      const alphaRad = (xAngle * Math.PI) / 180;
+      const betaRad = (yAngle * Math.PI) / 180;
 
-      // Jedinični vektori za X i Y osi
-      const xAxis = { x: Math.cos(xRad), y: Math.sin(xRad) };
-      const yAxis = { x: Math.cos(yRad), y: Math.sin(yRad) };
+      const sinAlpha = Math.sin(alphaRad);
+      const cosAlpha = Math.cos(alphaRad);
+      const sinBeta = Math.sin(betaRad);
+      const cosBeta = Math.cos(betaRad);
 
-      // Projekcija na X os
-      const xProjection =
-        (vector.x * xAxis.x + vector.y * xAxis.y) /
-        (xAxis.x ** 2 + xAxis.y ** 2);
+      const denominator = Math.sin(betaRad - alphaRad);
 
-      // Projekcija na Y os
-      const yProjection =
-        (vector.x * yAxis.x + vector.y * yAxis.y) /
-        (yAxis.x ** 2 + yAxis.y ** 2);
+      const p = (vector.x * sinBeta - vector.y * cosBeta) / denominator;
+      const q = (-vector.x * sinAlpha + vector.y * cosAlpha) / denominator;
 
       return {
-        x: { x: xProjection * xAxis.x, y: xProjection * xAxis.y },
-        y: { x: yProjection * yAxis.x, y: yProjection * yAxis.y },
+        x: { x: p * cosAlpha, y: p * sinAlpha },
+        y: { x: q * cosBeta, y: q * sinBeta },
       };
     };
 
-    // Glavni vektor (prilagodba zbog strelice)
     const mainVectorLength = Math.sqrt(vector.x ** 2 + vector.y ** 2);
     const adjustedX =
       (vector.x * (mainVectorLength - ARROW_LENGTH)) / mainVectorLength;
     const adjustedY =
       (vector.y * (mainVectorLength - ARROW_LENGTH)) / mainVectorLength;
 
-    // Crtanje glavnog vektora
     vectorGroup
       .append("line")
       .attr("class", "vector-main")
@@ -303,10 +184,8 @@ const VectorSimulator: React.FC = () => {
         createArrowHead(250 + vector.x, 250 - vector.y, vector.x, -vector.y)
       );
 
-    // Izračun projekcija
     const projections = calculateProjections(vector, xAngle, yAngle);
 
-    // X komponenta
     vectorGroup
       .append("line")
       .attr("class", "vector-x")
@@ -328,7 +207,6 @@ const VectorSimulator: React.FC = () => {
         )
       );
 
-    // Y komponenta
     vectorGroup
       .append("line")
       .attr("class", "vector-y")
@@ -351,12 +229,10 @@ const VectorSimulator: React.FC = () => {
       );
   }, [vector, xAngle, yAngle]);
 
-  //##################################################################
-  // Praćenje kretanja miša
   const handleMouseDown = (
     event: React.MouseEvent<SVGSVGElement, MouseEvent>
   ) => {
-    if (event.button !== 0) return; // Ako nije lijevi klik, izlazimo
+    if (event.button !== 0) return;
     setIsDragging(true);
   };
 
@@ -367,18 +243,15 @@ const VectorSimulator: React.FC = () => {
   const handleMouseMove = (
     event: React.MouseEvent<SVGSVGElement, MouseEvent>
   ) => {
-    if (!isDragging) return; // Ako nije povlačenje, ignoriramo
+    if (!isDragging) return;
     const svgRect = (svgRef.current as SVGSVGElement).getBoundingClientRect();
     const x = event.clientX - svgRect.left - 250;
     const y = 250 - (event.clientY - svgRect.top);
     setVector({ x, y });
   };
-  const [vectors, setVectors] = useState([
-    { start: { x: 250, y: 250 }, end: { x: 300, y: 300 } },
-  ]);
+
   return (
     <div className="vector-simulator-container">
-      {/* SVG element */}
       <svg
         ref={svgRef}
         width="500"
@@ -388,11 +261,8 @@ const VectorSimulator: React.FC = () => {
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseUp}
-      >
-        {/* SVG sadržaj */}
-      </svg>
+      ></svg>
 
-      {/* Kontrole izvan SVG-a */}
       <div className="controls">
         <label>
           X-os nagib:

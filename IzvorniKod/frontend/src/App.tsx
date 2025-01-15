@@ -8,15 +8,56 @@ import OdabranRastav from "./pages/Authenticated/OdabranRastav";
 import Registracija from "./pages/Public/Registracija";
 import Pocetna from "./pages/Public/Pocetna";
 import Izbornik from "./pages/Authenticated/Izbornik";
+import ProtectedRoute from "./components/ProtectedRoute";
+
 const App: React.FC = () => {
   return (
     <Routes>
+      {/* Public routes */}
       <Route path="/" element={<Pocetna />} />
-      <Route path="/izbornik" element={<Izbornik />} />
       <Route path="/registracija" element={<Registracija />} />
-      <Route path="/zbrajanje" element={<OdabranoZbrajanje />} />
-      <Route path="/oduzimanje" element={<ZadaciOduzimanje />} />
-      <Route path="/rastav" element={<OdabranRastav />} />
+
+      {/* Protected routes */}
+      <Route
+        path="/izbornik"
+        element={
+          <ProtectedRoute>
+            <Izbornik />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/zbrajanje"
+        element={
+          <ProtectedRoute>
+            <OdabranoZbrajanje />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/zbrajanjezadaci"
+        element={
+          <ProtectedRoute>
+            <ZadaciZbrajanje />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/oduzimanje"
+        element={
+          <ProtectedRoute>
+            <ZadaciOduzimanje />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/rastav"
+        element={
+          <ProtectedRoute>
+            <OdabranRastav />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 };
