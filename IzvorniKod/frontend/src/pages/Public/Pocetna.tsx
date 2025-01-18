@@ -1,57 +1,57 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../components/AuthContext"; // Import AuthContext
+import axios from "axios";
 import "./Pocetna.css";
 
+// Define the type of the server response
+interface LoginResponse {
+  token: string;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+  };
+}
+
 const Pocetna: React.FC = () => {
+  const username = "Korisnik";
+  const level = 3;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const { login } = useAuth(); // Koristimo AuthContext za login
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const handleLogin = async (event: React.FormEvent) => {
-    event.preventDefault();
-    setLoading(true); // Postavljamo stanje učitavanja
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      // Perform login request
+      const response = await axios.post<LoginResponse>(
+        "http://localhost:5000/login",
+        {
+          email,
+          password,
+        }
+      );
 
-      const data = await response.json();
+      const { token, user } = response.data;
 
-      if (response.ok) {
-        console.log("Server Response:", data);
-        login(data.token); // Koristimo AuthContext za pohranu tokena
-        console.log("Prijava uspješna:", data.message);
-        navigate("/izbornik"); // Preusmjeravanje na izbornik
-      } else {
-        console.error("Greška prilikom prijave:", data.message);
-        setErrorMessage(data.message || "Prijava nije uspjela.");
-      }
-    } catch (error) {
-      setErrorMessage("Nije moguće spojiti se na poslužitelj.");
-      console.error(error);
-    } finally {
-      setLoading(false); // Zaustavljamo učitavanje
+      // Save token to localStorage
+      localStorage.setItem("authToken", token);
+
+      // Navigate to the Izbornik page
+      navigate("/izbornik");
+
+      console.log("Logged in as:", user.name);
+    } catch (err: any) {
+      setError(
+        err.response?.data?.message || "Login failed. Please try again."
+      );
     }
   };
 
   return (
     <div className="login-page">
-      <header className="header">
-        <div className="logo">PRO-R</div>
-        <div className="profile">
-          <div className="profile-icon"></div>
-          <a href="/">prijavi se ili registriraj</a>
-        </div>
-      </header>
-
       <main className="content">
         <div className="info-box">
           <p>Nauči i izvježbaj zbrajanje i oduzimanje vektora i rastav sila</p>
@@ -64,22 +64,20 @@ const Pocetna: React.FC = () => {
               <input
                 type="email"
                 placeholder="email"
+                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
               />
               <input
                 type="password"
                 placeholder="lozinka"
+                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
               />
-              <button type="submit" disabled={loading}>
-                {loading ? "Prijava..." : "Log in"}
-              </button>
+              <button type="submit">Log in</button>
             </form>
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            {error && <p className="error">{error}</p>}
             <button className="google-login">google log in</button>
           </div>
 

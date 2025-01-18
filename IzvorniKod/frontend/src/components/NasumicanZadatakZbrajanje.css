@@ -1,0 +1,20 @@
+.arrow-x {
+    fill: #6a5acd;
+  }
+  .arrow-y {
+    fill: #c71585;
+  }
+  .arrow-main {
+    fill: white;
+  }
+  
+  .correct {
+    background-color: green;
+    color: white;
+  }
+  
+  .incorrect {
+    background-color: red;
+    color: white;
+  }
+  

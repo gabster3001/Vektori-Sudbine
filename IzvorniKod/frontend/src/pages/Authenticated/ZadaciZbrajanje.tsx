@@ -1,69 +1,27 @@
-import React, { useEffect, useState } from "react";
-import "../../components/Zadatak.css";
-import "../../components/Zadatak.tsx";
-
-// Tip podataka za zadatak
-interface Task {
-  id: number;
-  type: string;
-  description: string;
-}
+import React from "react";
+import "./Izbornik.css";
+import Zadatak from "../../components/NasumicanZadatakZbrajanje";
+import Header from "../../components/Header/Header"; // Importing the Header component
 
 const ZadaciZbrajanje: React.FC = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        const response = await fetch(
-          "http://localhost:5000/tasks?type=zbrajanje"
-        );
-        if (!response.ok) {
-          throw new Error(
-            `Greška kod dohvaćanja zadataka: ${response.statusText}`
-          );
-        }
-
-        const data: Task[] = await response.json();
-        setTasks(data);
-      } catch (err) {
-        setError((err as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTasks();
-  }, []);
-
-  if (loading) {
-    return <p>Učitavanje zadataka...</p>;
-  }
-
-  if (error) {
-    return <p>Greška: {error}</p>;
-  }
-
-  if (tasks.length === 0) {
-    return <p>Nema zadataka za zbrajanje.</p>;
-  }
+  // Function to refresh the page
+  const refreshPage = () => {
+    window.location.reload();
+  };
 
   return (
     <div>
-      <h1>Zadaci za Zbrajanje</h1>
-      {tasks.map((task) => (
-        <div key={task.id} className="task-card">
-          <h3>Zadatak {task.id}</h3>
-          <p>Opis: {task.description}</p>
-        </div>
-      ))}
+      <Header /> {/* Rendering the Header component */}
+      <Zadatak /> {/* Rendering the Zadatak component */}
+      <button onClick={refreshPage} className="novi-zadatak-button">
+        Novi Zadatak
+      </button>{" "}
+      {/* Button to refresh the page */}
     </div>
   );
 };
 
 export default ZadaciZbrajanje;
+
+// Add this to make it a module explicitly
+export {};
