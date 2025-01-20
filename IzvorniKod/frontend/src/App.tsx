@@ -5,7 +5,7 @@ import Pocetna from "./pages/Public/Pocetna";
 import OdabranRastav from "./pages/Authenticated/OdabranRastav";
 import OdabranoZbrajanje from "./pages/Authenticated/OdabranoZbrajanje";
 import ZadaciZbrajanje from "./pages/Authenticated/ZadaciZbrajanje";
-//import ZadaciOduzimanje from "./pages/Authenticated/ZadaciOduzimanje";
+import ZadaciOduzimanje from "./pages/Authenticated/ZadaciOduzimanje";
 import OdabranoOduzimanje from "./pages/Authenticated/OdabranoOduzimanje";
 import Izbornik from "./pages/Authenticated/Izbornik";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -55,7 +55,7 @@ const App: React.FC = () => {
         path="/zadaci-oduzimanje"
         element={
           <ProtectedRoute>
-            <ZadaciZbrajanje />
+            <ZadaciOduzimanje />
           </ProtectedRoute>
         }
       />

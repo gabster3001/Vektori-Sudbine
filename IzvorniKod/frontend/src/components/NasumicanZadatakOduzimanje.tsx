@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import * as d3 from "d3";
-import "./NasumicanZadatakZbrajanje.css";
+import "./NasumicanZadatakOduzimanje.css";
 
-const NasumicanZadatakZbrajanje: React.FC = () => {
+const NasumicanZadatakOduzimanje: React.FC = () => {
   const [points, setPoints] = useState<{ x: number; y: number }[]>([]);
   const [vectorLabels, setVectorLabels] = useState<string[]>([]);
   const [vectorColors, setVectorColors] = useState<string[]>([]);
-  const [correctAnswer, setCorrectAnswer] = useState<number>(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
 
   useEffect(() => {
@@ -53,30 +52,23 @@ const NasumicanZadatakZbrajanje: React.FC = () => {
 
     setPoints([startPoint, endPointA, endPointB]);
 
-    // Točan odgovor uvijek mora biti A + B = C
     const generatedAnswers = [
-      `${labels[0]} + ${labels[1]} = ${labels[2]}`,
-      `${labels[0]} + ${labels[2]} = ${labels[1]}`,
-      `${labels[1]} + ${labels[2]} = ${labels[0]}`,
+      `${labels[0]} - ${labels[1]} = ${labels[2]}`,
+      `${labels[1]} - ${labels[0]} = ${labels[2]}`,
+      `${labels[0]} - ${labels[2]} = ${labels[1]}`,
+      `${labels[2]} - ${labels[0]} = ${labels[1]}`,
+      `${labels[1]} - ${labels[2]} = ${labels[0]}`,
+      `${labels[2]} - ${labels[1]} = ${labels[0]}`,
     ];
-    const correctIndex = 0; // Prvi odgovor je uvijek točan prije miješanja
-    setAnswers(shuffleAnswers(generatedAnswers, correctIndex));
+    setAnswers(generatedAnswers);
   }, []);
 
-  const shuffleAnswers = (answers: string[], correctIndex: number) => {
-    const correctAnswer = answers[correctIndex];
-    const shuffled = answers
-      .map((answer) => ({ answer, sort: Math.random() }))
-      .sort((a, b) => a.sort - b.sort)
-      .map((item) => item.answer);
-
-    const newCorrectIndex = shuffled.indexOf(correctAnswer);
-    setCorrectAnswer(newCorrectIndex); // Spremaj novi indeks točnog odgovora
-    return shuffled;
-  };
-
   const handleAnswerClick = (index: number) => {
-    setSelectedAnswer(index);
+    if (selectedAnswers.includes(index)) {
+      setSelectedAnswers(selectedAnswers.filter((i) => i !== index));
+    } else {
+      setSelectedAnswers([...selectedAnswers, index]);
+    }
   };
 
   const renderVectors = (
@@ -123,15 +115,14 @@ const NasumicanZadatakZbrajanje: React.FC = () => {
       }
     });
 
-    // Crtanje trećeg vektora bez skraćivanja
     svg
       .append("line")
-      .attr("x1", points[0].x) // Početna točka vektora z
+      .attr("x1", points[0].x)
       .attr("y1", points[0].y)
-      .attr("x2", points[2].x) // Krajnja točka je ista kao za prethodni vektor
+      .attr("x2", points[2].x)
       .attr("y2", points[2].y)
       .attr("stroke-width", 2)
-      .attr("marker-end", `url(#arrow-2)`) // Strelica za treći vektor
+      .attr("marker-end", `url(#arrow-2)`)
       .style("stroke", vectorColors[2]);
 
     svg
@@ -170,8 +161,8 @@ const NasumicanZadatakZbrajanje: React.FC = () => {
             key={index}
             onClick={() => handleAnswerClick(index)}
             className={
-              selectedAnswer === index
-                ? index === correctAnswer
+              selectedAnswers.includes(index)
+                ? [3, 5].includes(index)
                   ? "correct"
                   : "incorrect"
                 : ""
@@ -185,4 +176,4 @@ const NasumicanZadatakZbrajanje: React.FC = () => {
   );
 };
 
-export default NasumicanZadatakZbrajanje;
+export default NasumicanZadatakOduzimanje;

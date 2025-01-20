@@ -1,9 +1,24 @@
 import React from "react";
 import "./Izbornik.css";
-import Zadatak from "../../components/NasumicanZadatakZbrajanje";
+import Zadatak from "../../components/NasumicanZadatakOduzimanje";
+import Header from "../../components/Header/Header"; // Importing the Header component
 
 const ZadaciZbrajanje: React.FC = () => {
-  return <Zadatak />;
+  // Function to refresh the page
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
+  return (
+    <div>
+      <Header /> {/* Rendering the Header component */}
+      <Zadatak /> {/* Rendering the Zadatak component */}
+      <button onClick={refreshPage} className="novi-zadatak-button">
+        Novi Zadatak
+      </button>{" "}
+      {/* Button to refresh the page */}
+    </div>
+  );
 };
 
 export default ZadaciZbrajanje;
