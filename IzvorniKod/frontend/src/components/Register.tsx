@@ -1,65 +1,40 @@
-import { useRef, useState, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
+import axios from "axios";
 import "./Register.css";
 
 const Register: React.FC = () => {
-  const userRef = useRef<HTMLInputElement>(null);
-  const errRef = useRef<HTMLParagraphElement>(null);
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const [user, setUser] = useState<string>(""); // username
-  const [email, setEmail] = useState<string>(""); // email
-  const [pwd, setPwd] = useState<string>(""); // password
-  const [matchPwd, setMatchPwd] = useState<string>("");
-
-  const [errMsg, setErrMsg] = useState<string>("");
+  const [errMsg, setErrMsg] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
+
+  useEffect(() => {
+    setErrMsg("");
+  }, [username, email, password]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    // Validacija praznih polja
-    if (!user.trim() || !email.trim() || !pwd.trim() || !matchPwd.trim()) {
-      setErrMsg("All fields are required.");
+    if (!password) {
+      setErrMsg("Password is required");
       return;
     }
 
-    // Validacija email formata
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setErrMsg("Invalid email format.");
-      return;
-    }
-
-    // Validacija podudaranja lozinki
-    if (pwd !== matchPwd) {
-      setErrMsg("Passwords do not match.");
-      return;
-    }
-
-    // Log podataka prije slanja na backend
-    console.log("Sending data to backend:", {
-      username: user,
-      email: email,
-      password: pwd,
-    });
-
-    // Slanje podataka na backend
     try {
-      const response = await fetch("http://localhost:5000/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: user, email: email, password: pwd }),
+      const response = await axios.post("http://localhost:5000/api/register", {
+        username,
+        email,
+        password,
       });
 
-      if (response.ok) {
-        setSuccess(true);
-      } else {
-        const errorData = await response.json();
-        console.error("Error response from server:", errorData); // Log greške sa servera
-        setErrMsg(errorData.message || "Registration failed.");
-      }
-    } catch (error) {
-      console.error("Error during registration:", error);
-      setErrMsg("Failed to connect to the server.");
+      console.log("Registration success:", response.data);
+      setSuccess(true);
+    } catch (err: any) {
+      const errorMessage =
+        err.response?.data?.message || "Registration failed. Please try again.";
+      setErrMsg(errorMessage);
     }
   };
 
@@ -68,25 +43,19 @@ const Register: React.FC = () => {
       {success ? (
         <div>
           <h1>Registration Successful!</h1>
-          <p>
-            You can now <a href="/">log in</a>.
-          </p>
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
-          <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>
-            {errMsg}
-          </p>
+          <p className={errMsg ? "errmsg" : "offscreen"}>{errMsg}</p>
           <h1>Register</h1>
 
           <label htmlFor="username">Username:</label>
           <input
             type="text"
             id="username"
-            ref={userRef}
             autoComplete="off"
-            onChange={(e) => setUser(e.target.value)}
-            value={user}
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
             required
           />
 
@@ -104,23 +73,12 @@ const Register: React.FC = () => {
           <input
             type="password"
             id="password"
-            onChange={(e) => setPwd(e.target.value)}
-            value={pwd}
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
             required
           />
 
-          <label htmlFor="confirm_pwd">Confirm Password:</label>
-          <input
-            type="password"
-            id="confirm_pwd"
-            onChange={(e) => setMatchPwd(e.target.value)}
-            value={matchPwd}
-            required
-          />
-
-          <button disabled={!user || !email || !pwd || pwd !== matchPwd}>
-            Sign Up
-          </button>
+          <button disabled={!username || !email || !password}>Register</button>
         </form>
       )}
     </div>

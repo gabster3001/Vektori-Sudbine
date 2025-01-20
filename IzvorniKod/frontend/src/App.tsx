@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-
+import "./config/axiosConfig";
 import Pocetna from "./pages/Public/Pocetna";
 import OdabranRastav from "./pages/Authenticated/OdabranRastav";
 import OdabranoZbrajanje from "./pages/Authenticated/OdabranoZbrajanje";

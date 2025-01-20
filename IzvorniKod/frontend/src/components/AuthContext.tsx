@@ -5,43 +5,56 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
+import axios from "../config/axiosConfig";
 
-// Tipovi za autentifikacijski kontekst
 interface AuthContextType {
-  isAuthenticated: boolean; // Stanje autentifikacije
-  login: (token: string) => void; // Funkcija za prijavu
-  logout: () => void; // Funkcija za odjavu
+  isAuthenticated: boolean;
+  login: (token: string) => void;
+  logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Komponenta koja osigurava autentifikacijski kontekst
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    // Provjera postoji li token u localStorage pri prvom učitavanju
-    return !!localStorage.getItem("authToken");
+    const token = localStorage.getItem("authToken");
+    return !!token;
   });
 
-  // Funkcija za prijavu
   const login = (token: string) => {
-    localStorage.setItem("authToken", token); // Spremamo token u localStorage
-    setIsAuthenticated(true); // Ažuriramo stanje autentifikacije
+    localStorage.setItem("authToken", token);
+    setIsAuthenticated(true);
     console.log("User logged in, token stored.");
   };
 
-  // Funkcija za odjavu
   const logout = () => {
-    localStorage.removeItem("authToken"); // Brišemo token iz localStorage
-    setIsAuthenticated(false); // Ažuriramo stanje autentifikacije
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("user");
+    setIsAuthenticated(false);
     console.log("User logged out, token removed.");
   };
 
-  // Povremeno možemo dodati efekt za provjeru stanja tokena
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    setIsAuthenticated(!!token); // Ako token postoji, korisnik je autentificiran
+    const checkToken = async () => {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        setIsAuthenticated(false);
+        return;
+      }
+
+      try {
+        await axios.get("http://localhost:5000/api/get-username");
+        setIsAuthenticated(true);
+      } catch (error) {
+        if ((error as any).response?.status === 401) {
+          logout();
+        }
+      }
+    };
+
+    checkToken();
   }, []);
 
   return (
@@ -51,7 +64,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   );
 };
 
-// Hook za jednostavno korištenje AuthContext-a
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../config/axiosConfig";
+import { useAuth } from "../../components/AuthContext";
 import "./Pocetna.css";
 
-// Define the type of the server response
 interface LoginResponse {
   token: string;
   user: {
@@ -14,8 +14,7 @@ interface LoginResponse {
 }
 
 const Pocetna: React.FC = () => {
-  const username = "Korisnik";
-  const level = 3;
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -23,11 +22,11 @@ const Pocetna: React.FC = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
 
     try {
-      // Perform login request
       const response = await axios.post<LoginResponse>(
-        "http://localhost:5000/login",
+        "http://localhost:5000/api/login",
         {
           email,
           password,
@@ -36,16 +35,16 @@ const Pocetna: React.FC = () => {
 
       const { token, user } = response.data;
 
-      // Save token to localStorage
-      localStorage.setItem("authToken", token);
-
-      // Navigate to the Izbornik page
-      navigate("/izbornik");
+      login(token); // Pozivamo context login funkciju
+      localStorage.setItem("user", JSON.stringify(user));
 
       console.log("Logged in as:", user.name);
+      navigate("/izbornik");
     } catch (err: any) {
+      console.error("Login error:", err.response?.data || err.message);
       setError(
-        err.response?.data?.message || "Login failed. Please try again."
+        err.response?.data?.message ||
+          "Neuspješna prijava. Molimo pokušajte ponovno."
       );
     }
   };
@@ -78,7 +77,6 @@ const Pocetna: React.FC = () => {
               <button type="submit">Log in</button>
             </form>
             {error && <p className="error">{error}</p>}
-            <button className="google-login">google log in</button>
           </div>
 
           <div className="divider"></div>
