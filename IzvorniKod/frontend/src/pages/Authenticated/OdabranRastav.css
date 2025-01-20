@@ -14,7 +14,7 @@
     position: relative;
     background: url('/public/zbrajanjeBackground.jpeg') no-repeat center center fixed;
     background-size: cover;
-    height: 100vh; 
+    height: auto;
     display: flex;
     flex-direction: column;
 }
@@ -99,6 +99,14 @@
     min-height: 80vh;
 }
 
+.vector-simulator-rastav{
+    flex: 1;
+    margin-top:2rem;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    min-height: 80vh;
+}
 .rastav-buttons{
     display: flex;
     flex-direction: row;
@@ -110,7 +118,7 @@
 .section {
     padding: 1rem;
     margin: 1rem 0;
-    background: #f9f9f9;
+    background: white;
     border: 1px solid #ccc;
     border-radius: 8px;
 }
