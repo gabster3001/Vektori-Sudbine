@@ -1,27 +1,37 @@
 import React from "react";
-import "./Izbornik.css";
+import "./ZadaciZbrajanje.css";
 import Zadatak from "../../components/NasumicanZadatakZbrajanje";
-import Header from "../../components/Header/Header"; // Importing the Header component
+import Header from "../../components/Header/Header"; 
+import { Link, useNavigate } from "react-router-dom";
 
 const ZadaciZbrajanje: React.FC = () => {
-  // Function to refresh the page
+  const navigate = useNavigate();
   const refreshPage = () => {
     window.location.reload();
   };
 
   return (
-    <div>
-      <Header /> {/* Rendering the Header component */}
-      <Zadatak /> {/* Rendering the Zadatak component */}
-      <button onClick={refreshPage} className="novi-zadatak-button">
-        Novi Zadatak
-      </button>{" "}
-      {/* Button to refresh the page */}
+    <div className="zadaci-zbrajanje-page">
+      <Header /> 
+        <div className="main-content-zadaci-zbrajanje">
+        <div className="zadaci-zbrajanje-navigation">
+            <button className="back-button-zadaci-zbrajanje" onClick={() => navigate(-1)}>
+              &lt;
+            </button>
+            <div className="zadaci-zbrajanje-title">Zadaci - zbrajanje vektora</div>
+          </div>
+        <div className="odabrano-zbrajanje-middle">
+          <Zadatak /> 
+          <button onClick={refreshPage} className="novi-zadatak-button">
+            Novi Zadatak
+          </button>{" "}
+        </div>
+      </div>
     </div>
   );
 };
 
 export default ZadaciZbrajanje;
 
-// Add this to make it a module explicitly
+
 export {};

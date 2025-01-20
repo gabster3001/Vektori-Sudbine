@@ -18,14 +18,14 @@ const OdabranoZbrajanje: React.FC = () => {
 
   const menuItems = {
     "1D": [
-      { title: "Formule", id: "formule-1d" },
       { title: "Teorija", id: "teorija-1d" },
+      { title: "Postupak", id: "postupak-1d" },
       { title: "Primjeri", id: "primjeri-1d" },
     ],
     "2D": [
       { title: "Pravilo trokuta", id: "pravilo-trokuta" },
-      { title: "Primjeri", id: "primjeri-2d" },
       { title: "Pravilo paralelograma", id: "pravilo-paralelograma" },
+      { title: "Primjeri", id: "primjeri-2d" },
     ],
   };
 
@@ -96,14 +96,75 @@ const OdabranoZbrajanje: React.FC = () => {
               </button>
             </div>
 
+            <div id="podsjetnik" className="section">
+              <h2>Podsjetnik o vektorima</h2>
+              <p>Vektor je <b>usmjerena dužina </b>kojoj je jedna rubna točka određena za početak, a druga za kraj (završetak). </p>
+              <p> Vektor, kojemu je početna točka A, a završna točka B, označavamo s AB strelica.</p>
+              <p> Svaki vektor ima svoju <b>duljinu</b>, <b>smjer</b> i <b>orijentaciju</b>. Smjer vektora određen je pravcem kojemu vektor pripada.</p>
+              <p> Orijentaciju vektora pokazuje njegova strelica.</p>
+              
+            </div>
+
             <div id="jedna-dimenzija" className="section">
-              <h2>Zbrajanje vektora u jednoj dimenziji</h2>
-              <p>tekst i primjeri</p>
+              <div id="teorija-1d">
+                <h2>Zbrajanje vektora u jednoj dimenziji</h2>
+                <p>Ako vektori imaju isti smjer (pripadaju istom pravcu ili paralelnim pravcima), onda kažemo da su ti vektori <b>kolinearni</b>.</p>
+                <p>
+                    Kada zbrajamo vektore u jednoj dimenziji, zamislimo ih kao strelice na pravcu.  
+                    Da bismo ih zbrojili, zbrajamo njihove iznose.
+                    <ol>
+                        <li>Dodajemo duljine vektora ako idu u istom smjeru.</li>
+                        <li>Oduzimamo duljine ako idu u suprotnim smjerovima.</li>
+                    </ol>
+                    Zbroj dvaju vektora je vektor koji počinje u početnoj točki prvoga vektora, a završava u završnoj točki drugoga vektora.
+                </p>
+              </div>
+
+              <div id="postupak-1d">
+                <p><b>Postupak zbrajanja </b>
+                  <ol>
+                    <li>Nacrtamo pravac na kojem leži jedan od vektora.</li>
+                    <li>Na pravcu odaberemo početnu točku <b>O</b>.</li>
+                    <li>Nacrtamo vektor OA = a koji počinje u odabranoj točki O.</li>
+                    <li>Nacrtamo vektor AB = b koji počinje u točki A.</li>
+                    <li>Zbroj vektora a i b je vektor OB. </li>
+                  </ol>
+                </p>
+              </div>
+
+              <div id="primjeri-1d">
+                <p><b>Primjeri</b></p>
+              </div>
             </div>
 
             <div id="dvije-dimenzije" className="section">
               <h2>Zbrajanje vektora u dvije dimenzije</h2>
-              <p>tekst i primjeri</p>
+              <p>Ako vektori nemaju isti smjer (ne pripadaju istom pravcu ili usporednim pravcima), onda kažemo da su ti vektori <b>nekolinearni</b>.</p>
+              <p>
+                  Postoje dva načina zbrajanja dva nekolinearna vektora: <b>PRAVILO TROKUTA</b> i <b>PRAVILO PARALELOGRAMA</b>.
+              </p>
+              
+              <div id="pravilo-trokuta">
+                <p><b>PRAVILO TROKUTA</b></p>
+                <ol>
+                    <li>Početak vektora b dovesti na kraj vektora a.</li>
+                    <li>Nacrtaj novi rezultantni vektor koji počinje u početku vektora a, i završava u završetku vektora b.</li>
+                </ol>
+              </div>
+
+              <div id="pravilo-paralelograma">
+                <p><b>PRAVILO PARALELOGRAMA</b></p>
+                <ol>
+                    <li>Početke oba vektora staviti u istu točku. </li>
+                    <li>Konstruiraj paralelogram, tako da u završetak vektora b docrtaš točkastom linijom kopiju vektora a, i isto napravi za posljednju stranicu.</li>
+                    <li>Dijagonala paralelograma je rezultantni vektor a + b.</li>
+                </ol>
+              </div>
+
+              <div id="primjeri-2d">
+                <p><b>Primjeri</b></p>
+              </div>
+              
             </div>
           </div>
         </div>

@@ -8,7 +8,6 @@ import ZadaciZbrajanje from "./pages/Authenticated/ZadaciZbrajanje";
 import ZadaciOduzimanje from "./pages/Authenticated/ZadaciOduzimanje";
 import OdabranoOduzimanje from "./pages/Authenticated/OdabranoOduzimanje";
 import Izbornik from "./pages/Authenticated/Izbornik";
-import ProtectedRoute from "./components/ProtectedRoute";
 import Registracija from "./pages/Public/Registracija";
 
 const App: React.FC = () => {
@@ -17,56 +16,12 @@ const App: React.FC = () => {
       {/* Public routes */}
       <Route path="/" element={<Pocetna />} />
       <Route path="/registracija" element={<Registracija />} />
-
-      {/* Protected routes */}
-      <Route
-        path="/izbornik"
-        element={
-          <ProtectedRoute>
-            <Izbornik />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/zbrajanje"
-        element={
-          <ProtectedRoute>
-            <OdabranoZbrajanje />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/zadaci-zbrajanje"
-        element={
-          <ProtectedRoute>
-            <ZadaciZbrajanje />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/oduzimanje"
-        element={
-          <ProtectedRoute>
-            <OdabranoOduzimanje />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/zadaci-oduzimanje"
-        element={
-          <ProtectedRoute>
-            <ZadaciOduzimanje />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/rastav"
-        element={
-          <ProtectedRoute>
-            <OdabranRastav />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/izbornik" element={<Izbornik />} />
+      <Route path="/zbrajanje" element={<OdabranoZbrajanje />} />
+      <Route path="/zadaci-zbrajanje" element={<ZadaciZbrajanje />} />
+      <Route path="/oduzimanje" element={<OdabranoOduzimanje />} />
+      <Route path="/zadaci-oduzimanje" element={<ZadaciOduzimanje />} />
+      <Route path="/rastav" element={<OdabranRastav />} />
     </Routes>
   );
 };

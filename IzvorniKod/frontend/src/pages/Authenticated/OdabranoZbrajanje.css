@@ -14,7 +14,7 @@
   position: relative;
   background: url('/public/zbrajanjeBackground.jpeg') no-repeat center center fixed;
   background-size: cover;
-  height: 100vh; 
+  height: auto; 
   display: flex;
   flex-direction: column;
 }
@@ -109,9 +109,16 @@
 .section {
   padding: 1rem;
   margin: 1rem 0;
-  background: #f9f9f9;
+  background: white;
   border: 1px solid #ccc;
   border-radius: 8px;
+  color: #22223B;
+}
+.section h2 {
+  margin: 0rem;
+  padding-bottom: 0.5rem;
+  color: #22223B;
+  text-decoration-line: underline;
 }
 
 .card-right {
