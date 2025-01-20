@@ -28,28 +28,50 @@ const NasumicanZadatakOduzimanje: React.FC = () => {
       .slice(0, 3);
     setVectorColors(randomColors);
 
+    const clamp = (value: number, min: number, max: number) =>
+      Math.max(min, Math.min(value, max));
+  
+    const canvasSize = 500;
+    const margin = 50;
+  
+    // random pocetna unutar kvadrata
     const startPoint = {
-      x: Math.random() * 200 + 100,
-      y: Math.random() * 200 + 100,
+      x: Math.random() * (canvasSize - 200) + 100, 
+      y: Math.random() * (canvasSize - 200) + 100,
     };
-    const vectorA = {
-      x: Math.random() * 100 + 50,
-      y: Math.random() * 100 + 50,
+  
+    let vectorA = {
+      x: (Math.random() * 100 + 50) * (Math.random() < 0.5 ? -1 : 1),
+      y: (Math.random() * 100 + 50) * (Math.random() < 0.5 ? -1 : 1),
     };
-    const vectorB = {
-      x: Math.random() * 100 + 50,
-      y: Math.random() * 100 + 50,
+  
+    let endPointA = {
+      x: clamp(startPoint.x + vectorA.x, margin, canvasSize - margin),
+      y: clamp(startPoint.y + vectorA.y, margin, canvasSize - margin),
     };
-
-    const endPointA = {
-      x: startPoint.x + vectorA.x,
-      y: startPoint.y + vectorA.y,
+  
+    // ponovno racunamo za slucaj da je izasao izvan granica
+    vectorA = {
+      x: endPointA.x - startPoint.x,
+      y: endPointA.y - startPoint.y,
     };
-    const endPointB = {
-      x: endPointA.x + vectorB.x,
-      y: endPointA.y + vectorB.y,
+  
+    let vectorB = {
+      x: (Math.random() * 100 + 50) * (Math.random() < 0.5 ? -1 : 1),
+      y: (Math.random() * 100 + 50) * (Math.random() < 0.5 ? -1 : 1),
     };
-
+  
+    let endPointB = {
+      x: clamp(endPointA.x + vectorB.x, margin, canvasSize - margin),
+      y: clamp(endPointA.y + vectorB.y, margin, canvasSize - margin),
+    };
+  
+    // ponovno racunamo za slucaj da je izasao izvan granica
+    vectorB = {
+      x: endPointB.x - endPointA.x,
+      y: endPointB.y - endPointA.y,
+    };
+  
     setPoints([startPoint, endPointA, endPointB]);
 
     const generatedAnswers = [
