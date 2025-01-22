@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "name": "my-app",
   "version": "0.1.0",
@@ -11,6 +10,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.9",
+    "better-react-mathjax": "^2.0.4-beta1",
     "d3": "^7.9.0",
     "lucide-react": "^0.469.0",
     "react": "^18.3.1",
@@ -59,66 +59,3 @@
     "typescript": "^4.9.5"
   }
 }
-=======
-{
-  "name": "my-app",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@craco/craco": "^7.1.0",
-    "@fortawesome/free-solid-svg-icons": "^6.7.2",
-    "@fortawesome/react-fontawesome": "^0.2.2",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "axios": "^0.21.4",
-    "better-react-mathjax": "^2.0.4-beta1",
-    "d3": "^7.9.0",
-    "lucide-react": "^0.469.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^7.1.3",
-    "react-scripts": "^5.0.1",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@babel/plugin-proposal-private-methods": "^7.18.6",
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@types/axios": "^0.9.36",
-    "@types/d3": "^7.4.3",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "@types/react-router-dom": "^5.3.3",
-    "typescript": "^4.9.5"
-  }
-}
->>>>>>> 6cabe48bd9ec0f52ad497aadaa6e6f16b0399a12

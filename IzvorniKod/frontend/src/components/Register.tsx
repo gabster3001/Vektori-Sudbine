@@ -14,6 +14,9 @@ const Register: React.FC = () => {
     setErrMsg("");
   }, [username, email, password]);
 
+  // Opcija s process.env
+  const API_URL = process.env.VITE_API_URL || "http://localhost:5000";
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -23,7 +26,7 @@ const Register: React.FC = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/register", {
+      const response = await axios.post(`${API_URL}/api/register`, {
         username,
         email,
         password,
@@ -37,7 +40,6 @@ const Register: React.FC = () => {
       setErrMsg(errorMessage);
     }
   };
-
   return (
     <div className="container">
       {success ? (

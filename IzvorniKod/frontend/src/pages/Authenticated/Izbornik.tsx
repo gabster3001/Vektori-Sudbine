@@ -4,8 +4,6 @@ import Header from "../../components/Header/Header";
 import { Link } from "react-router-dom";
 
 const Izbornik: React.FC = () => {
-  const username = "Korisnik";
-  const level = 3;
   return (
     <div className="izbornik">
       <Header />

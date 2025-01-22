@@ -3,8 +3,10 @@ import axios from "../../config/axiosConfig";
 import { useAuth } from "../../components/AuthContext";
 import "./Header.css";
 
-interface UsernameResponse {
-  username: string;
+interface User {
+  id: number;
+  name: string;
+  email: string;
 }
 
 const Header: React.FC = () => {
@@ -13,31 +15,13 @@ const Header: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchUsername = async () => {
-      const authToken = localStorage.getItem("authToken");
-
-      if (!authToken) {
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const response = await axios.get<UsernameResponse>(
-          "http://localhost:5000/api/get-username"
-        );
-        setUsername(response.data.username);
-      } catch (error) {
-        console.error("Error fetching username:", error);
-        if ((error as any).response?.status === 401) {
-          logout();
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUsername();
-  }, [logout]);
+    const userString = localStorage.getItem("user");
+    if (userString) {
+      const userData: User = JSON.parse(userString);
+      setUsername(userData.name);
+    }
+    setLoading(false);
+  }, []);
 
   if (loading) {
     return (

@@ -1,8 +1,8 @@
 import React from "react";
 import "./ZadaciZbrajanje.css";
 import Zadatak from "../../components/NasumicanZadatakZbrajanje";
-import Header from "../../components/Header/Header"; 
-import { Link, useNavigate } from "react-router-dom";
+import Header from "../../components/Header/Header";
+import { useNavigate } from "react-router-dom";
 
 const ZadaciZbrajanje: React.FC = () => {
   const navigate = useNavigate();
@@ -12,16 +12,21 @@ const ZadaciZbrajanje: React.FC = () => {
 
   return (
     <div className="zadaci-zbrajanje-page">
-      <Header /> 
-        <div className="main-content-zadaci-zbrajanje">
+      <Header />
+      <div className="main-content-zadaci-zbrajanje">
         <div className="zadaci-zbrajanje-navigation">
-            <button className="back-button-zadaci-zbrajanje" onClick={() => navigate(-1)}>
-              &lt;
-            </button>
-            <div className="zadaci-zbrajanje-title">Zadaci - zbrajanje vektora</div>
+          <button
+            className="back-button-zadaci-zbrajanje"
+            onClick={() => navigate(-1)}
+          >
+            &lt;
+          </button>
+          <div className="zadaci-zbrajanje-title">
+            Zadaci - zbrajanje vektora
           </div>
+        </div>
         <div className="odabrano-zbrajanje-middle">
-          <Zadatak /> 
+          <Zadatak />
           <button onClick={refreshPage} className="novi-zadatak-button">
             Novi Zadatak
           </button>{" "}
@@ -32,6 +37,5 @@ const ZadaciZbrajanje: React.FC = () => {
 };
 
 export default ZadaciZbrajanje;
-
 
 export {};

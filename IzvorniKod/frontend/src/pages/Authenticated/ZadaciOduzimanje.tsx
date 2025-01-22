@@ -1,8 +1,8 @@
 import React from "react";
 import "./ZadaciOduzimanje.css";
 import Zadatak from "../../components/NasumicanZadatakOduzimanje";
-import Header from "../../components/Header/Header"; 
-import { Link, useNavigate } from "react-router-dom";
+import Header from "../../components/Header/Header";
+import { useNavigate } from "react-router-dom";
 
 const ZadaciZbrajanje: React.FC = () => {
   const navigate = useNavigate();
@@ -12,16 +12,21 @@ const ZadaciZbrajanje: React.FC = () => {
 
   return (
     <div className="zadaci-oduzimanje-page">
-      <Header /> 
-        <div className="main-content-zadaci-oduzimanje">
+      <Header />
+      <div className="main-content-zadaci-oduzimanje">
         <div className="zadaci-oduzimanje-navigation">
-            <button className="back-button-zadaci-oduzimanje" onClick={() => navigate(-1)}>
-              &lt;
-            </button>
-            <div className="zadaci-oduzimanje-title">Zadaci - oduzimanje vektora</div>
+          <button
+            className="back-button-zadaci-oduzimanje"
+            onClick={() => navigate(-1)}
+          >
+            &lt;
+          </button>
+          <div className="zadaci-oduzimanje-title">
+            Zadaci - oduzimanje vektora
           </div>
+        </div>
         <div className="odabrano-oduzimanje-middle">
-          <Zadatak /> 
+          <Zadatak />
           <button onClick={refreshPage} className="novi-zadatak-button">
             Novi Zadatak
           </button>{" "}
@@ -32,6 +37,5 @@ const ZadaciZbrajanje: React.FC = () => {
 };
 
 export default ZadaciZbrajanje;
-
 
 export {};

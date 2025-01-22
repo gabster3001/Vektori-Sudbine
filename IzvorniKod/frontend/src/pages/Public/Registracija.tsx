@@ -1,10 +1,7 @@
 import React from "react";
-import Header from "../../components/Header/Header";
 import Register from "../../components/Register";
 
 export default function Registracija() {
-  const username = "Korisnik";
-  const level = 3;
   return (
     <div className="registracija-page">
       <Register />
