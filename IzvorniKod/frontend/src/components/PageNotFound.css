@@ -1,0 +1,15 @@
+.backHomebutton{
+    font-family: Poppins;
+    width: 20%;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.pgNotFound{
+    text-align: center;
+    margin-top: 20%;
+}

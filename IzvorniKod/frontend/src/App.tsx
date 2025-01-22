@@ -9,6 +9,7 @@ import ZadaciOduzimanje from "./pages/Authenticated/ZadaciOduzimanje";
 import OdabranoOduzimanje from "./pages/Authenticated/OdabranoOduzimanje";
 import Izbornik from "./pages/Authenticated/Izbornik";
 import Registracija from "./pages/Public/Registracija";
+import PageNotFound from "./components/PageNotFound";
 
 const App: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const App: React.FC = () => {
       <Route path="/oduzimanje" element={<OdabranoOduzimanje />} />
       <Route path="/zadaci-oduzimanje" element={<ZadaciOduzimanje />} />
       <Route path="/rastav" element={<OdabranRastav />} />
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 };

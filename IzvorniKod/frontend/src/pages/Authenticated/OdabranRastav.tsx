@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import VectorSimulator from "../../components/VectorSimulator/VectorSimulator";
 import Header from "../../components/Header/Header";
-//import { MathJax, MathJaxContext } from "better-react-mathjax";
 import "./OdabranRastav.css";
 
 const OdabranRastav: React.FC = () => {
@@ -120,7 +119,16 @@ const OdabranRastav: React.FC = () => {
 
             <div className="vector-simulator-rastav">
               <h2>Pokušajte sami!</h2>
-              <VectorSimulator />
+              <div className="simulator-slika">
+                <VectorSimulator />
+                <div className="vector-image-container">
+                  <img
+                    src="/vector-example.png" 
+                    alt="Primjer rastava vektora"
+                    className="vector-image"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>

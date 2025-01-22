@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "../../config/axiosConfig";
 import { useAuth } from "../../components/AuthContext";
 import "./Header.css";
+import { Link, useNavigate } from "react-router-dom";
 
 interface User {
   id: number;
@@ -13,6 +14,7 @@ const Header: React.FC = () => {
   const { logout } = useAuth();
   const [username, setUsername] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userString = localStorage.getItem("user");
@@ -26,9 +28,9 @@ const Header: React.FC = () => {
   if (loading) {
     return (
       <div className="header">
-        <div className="header__logo">PRO-R</div>
+        <Link to="/izbornik" className="header__logo">PRO-R</Link>
         <div className="header__user-info">
-          <span className="header__username">Loading...</span>
+          <Link to="/profile" className="header__username">Loading...</Link>
           <div className="header__icon">⭐</div>
         </div>
       </div>
@@ -37,9 +39,9 @@ const Header: React.FC = () => {
 
   return (
     <header className="header">
-      <div className="header__logo">PRO-R</div>
+      <Link to="/izbornik" className="header__logo">PRO-R</Link>
       <div className="header__user-info">
-        <span className="header__username">{username || "Gost"}</span>
+        <Link to="/profile" className="header__username">{username || "Gost"}</Link>
         <div className="header__icon">⭐</div>
       </div>
     </header>
