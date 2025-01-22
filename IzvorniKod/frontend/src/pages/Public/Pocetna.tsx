@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../config/axiosConfig";
 import { useAuth } from "../../components/AuthContext";
@@ -15,10 +15,15 @@ interface LoginResponse {
 
 const Pocetna: React.FC = () => {
   const { login } = useAuth();
+  const { logout } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    logout(); // Ovo će očistiti i localStorage i state
+  }, [logout]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
