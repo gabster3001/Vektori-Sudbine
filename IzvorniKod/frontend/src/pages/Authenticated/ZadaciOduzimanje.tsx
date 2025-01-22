@@ -15,6 +15,7 @@ const ZadaciZbrajanje: React.FC = () => {
       <Header />
       <div className="main-content-zadaci-oduzimanje">
         <div className="zadaci-oduzimanje-navigation">
+<<<<<<< HEAD
           <button
             className="back-button-zadaci-oduzimanje"
             onClick={() => navigate(-1)}
@@ -23,10 +24,23 @@ const ZadaciZbrajanje: React.FC = () => {
           </button>
           <div className="zadaci-oduzimanje-title">
             Zadaci - oduzimanje vektora
+=======
+            <button className="back-button-zadaci-oduzimanje" onClick={() => navigate(-1)}>
+              &lt;
+            </button>
+            <div className="zadaci-oduzimanje-title">Zadaci - oduzimanje vektora <br></br>
+              
+            </div>
+>>>>>>> 96118acaadbf979a9a03adebec156641528171ee
           </div>
         </div>
         <div className="odabrano-oduzimanje-middle">
+<<<<<<< HEAD
           <Zadatak />
+=======
+          <p> Postoje 2 točna odgovora!</p>
+          <Zadatak /> 
+>>>>>>> 96118acaadbf979a9a03adebec156641528171ee
           <button onClick={refreshPage} className="novi-zadatak-button">
             Novi Zadatak
           </button>{" "}

@@ -152,6 +152,16 @@ const VectorSimulator: React.FC = () => {
         "points",
         createArrowHead(250 + vector.x, 250 - vector.y, vector.x, -vector.y)
       );
+    
+
+    // Label for the main vector (v)
+    vectorGroup
+      .append("text")
+      .attr("class", "label-v")
+      .attr("x", 250 + adjustedX / 2)
+      .attr("y", 250 - adjustedY / 2)
+      .attr("dy", -10) 
+      .text("v");
 
     // X komponenta (prilagodba)
     const adjustedXComponent =
@@ -170,6 +180,15 @@ const VectorSimulator: React.FC = () => {
       .append("polygon")
       .attr("class", "arrow-x")
       .attr("points", createArrowHead(250 + vector.x, 250, vector.x, 0));
+    
+    // Label for the x-component vector (vx)
+    vectorGroup
+      .append("text")
+      .attr("class", "label-vx")
+      .attr("x", 250 + adjustedXComponent / 2)
+      .attr("y", 250)
+      .attr("dy", -10) 
+      .html("v<tspan dy='5' font-size='70%'>x</tspan>");
 
     // Y komponenta (prilagodba)
     const adjustedYComponent =
@@ -188,6 +207,14 @@ const VectorSimulator: React.FC = () => {
       .append("polygon")
       .attr("class", "arrow-y")
       .attr("points", createArrowHead(250, 250 - vector.y, 0, -vector.y));
+
+    vectorGroup
+      .append("text")
+      .attr("class", "label-vy")
+      .attr("x", 250)
+      .attr("y", 250 - adjustedYComponent / 2)
+      .attr("dx", 10) 
+      .html("v<tspan dy='5' font-size='70%'>y</tspan>");
   }, [vector]);
 
   //##################################################################
