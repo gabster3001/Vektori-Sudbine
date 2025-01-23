@@ -7,11 +7,12 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   console.log("Is authenticated:", isAuthenticated);
 
-  // Ako korisnik nije autentificiran, preusmjerite ga na login stranicu (ili početnu)
   if (!isAuthenticated) {
+    // Call logout which will clear both authToken and user from localStorage
+    logout();
     return <Navigate to="/" replace />;
   }
 

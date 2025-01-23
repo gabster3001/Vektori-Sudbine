@@ -7,6 +7,7 @@ import OdabranoZbrajanje from "./pages/Authenticated/OdabranoZbrajanje";
 import ZadaciZbrajanje from "./pages/Authenticated/ZadaciZbrajanje";
 import ZadaciOduzimanje from "./pages/Authenticated/ZadaciOduzimanje";
 import OdabranoOduzimanje from "./pages/Authenticated/OdabranoOduzimanje";
+import Profil from "./pages/Authenticated/Profil";
 import Izbornik from "./pages/Authenticated/Izbornik";
 import Registracija from "./pages/Public/Registracija";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -69,8 +70,16 @@ const App: React.FC = () => {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/profil"
+        element={
+          <ProtectedRoute>
+            <Profil />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
-  );
+  );
 };
 
-export default App;
+export default App;

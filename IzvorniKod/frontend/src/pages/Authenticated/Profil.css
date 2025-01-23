@@ -1,0 +1,155 @@
+.profil {
+    margin: 0;
+    font-family: Poppins, sans-serif;
+    box-sizing: border-box;
+    position: relative;
+    background: url('/public/izbornikBackground.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh; 
+    display: flex;
+    flex-direction: column;
+}
+
+.profil__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 2rem;
+}
+
+.profil__avatar-circle {
+    width: 200px;
+    height: 200px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.profil__avatar-placeholder {
+    font-size: 5rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profil__username {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.profil__logout-button {
+    background-color: #8a4fff; /* Ljubičasta boja */
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.profil__logout-button:hover {
+    background-color: #7a3fe6;
+}
+
+.profil__password-change-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 4rem;
+}
+
+.profil__password-change-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.profil__password-change-form h3 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.profil__password-change-form input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+}
+
+.profil__change-password-button {
+    background-color: #8a4fff;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.profil__change-password-button:hover {
+    background-color: #7a3fe6;
+}
+
+.profil__error {
+    color: red;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.profil__success {
+    color: green;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* Responzivni dio */
+@media (max-width: 768px) {
+    .profil__avatar-circle {
+        width: 150px;
+        height: 150px;
+    }
+
+    .profil__avatar-placeholder {
+        font-size: 3rem;
+    }
+
+    .profil__username {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .profil__avatar-circle {
+        width: 120px;
+        height: 120px;
+    }
+
+    .profil__avatar-placeholder {
+        font-size: 2.5rem;
+    }
+
+    .profil__username {
+        font-size: 1rem;
+    }
+
+    .profil__password-change-form {
+        max-width: 300px;
+    }
+}

@@ -138,6 +138,56 @@ app.get('/api/get-username', verifyToken, (req, res) => {
   });
 });
 
+
+app.post('/api/change-password', verifyToken, async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  const userId = req.user.id;  // This comes from the JWT token
+
+  try {
+    // Fetch user using the same query pattern as other routes
+    const query = 'SELECT * FROM users WHERE ID = ?';
+    db.query(query, [userId], async (err, results) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Error changing password' });
+      }
+
+      if (results.length === 0) {
+        return res.status(400).json({ message: 'User not found' });
+      }
+
+      const user = results[0];
+      const passwordMatch = await bcrypt.compare(currentPassword, user.password);
+
+      if (!passwordMatch) {
+        return res.status(400).json({ message: 'Current password is incorrect' });
+      }
+
+      try {
+        // Hash new password
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+        // Update password
+        const updateQuery = 'UPDATE users SET password = ? WHERE ID = ?';
+        db.query(updateQuery, [hashedNewPassword, userId], (updateErr, updateResult) => {
+          if (updateErr) {
+            console.error(updateErr);
+            return res.status(500).json({ message: 'Error updating password' });
+          }
+
+          res.json({ message: 'Password changed successfully' });
+        });
+      } catch (hashError) {
+        console.error(hashError);
+        res.status(500).json({ message: 'Server error' });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

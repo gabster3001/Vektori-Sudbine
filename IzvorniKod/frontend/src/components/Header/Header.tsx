@@ -28,9 +28,13 @@ const Header: React.FC = () => {
   if (loading) {
     return (
       <div className="header">
-        <Link to="/izbornik" className="header__logo">PRO-R</Link>
+        <Link to="/izbornik" className="header__logo">
+          PRO-R
+        </Link>
         <div className="header__user-info">
-          <Link to="/profile" className="header__username">Loading...</Link>
+          <Link to="/profil" className="header__username">
+            Loading...
+          </Link>
           <div className="header__icon">⭐</div>
         </div>
       </div>
@@ -39,9 +43,13 @@ const Header: React.FC = () => {
 
   return (
     <header className="header">
-      <Link to="/izbornik" className="header__logo">PRO-R</Link>
+      <Link to="/izbornik" className="header__logo">
+        PRO-R
+      </Link>
       <div className="header__user-info">
-        <Link to="/profile" className="header__username">{username || "Gost"}</Link>
+        <Link to="/profil" className="header__username">
+          {username || "Gost"}
+        </Link>
         <div className="header__icon">⭐</div>
       </div>
     </header>
